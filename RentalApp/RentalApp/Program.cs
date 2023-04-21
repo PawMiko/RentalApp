@@ -1,33 +1,35 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using RentalApp;
 int i=0;
-var User  = new FilmEquipment("MassConcept: ");
-var User1 = new FilmEquipment("Strip Studio: ");
-var User2 = new FilmEquipment("Sioux Film: ");
+var Business  = new PriceOfFilmEquipmentToFile("MassConcept: ","massConcept.txt");
+var Business1 = new PriceOfFilmEquipmentToFile("Strip Studio: ","StripStudio.txt");
+var Business2 = new PriceOfFilmEquipmentToFile("Sioux Film: ","SiouxFilm.txt");
+var Global    = new PriceOfFilmEquipmentToFile();
+float[] global = new float[3];
 
 
-
-
-Console.WriteLine("-----------------------STATYCZNA WYPOŻYCZALNIA SPRŻETU FILMOWEGO-----------------------");
-Console.WriteLine("=======================================================================================");
-Console.WriteLine("-------Masz wybór pomiędzy trzema firmami które mogą wypozyczyc sprżet filmowy---------");
-Console.WriteLine("naciśnij M - wybierzesz  firmę Mass Concept");
-Console.WriteLine("naciśnij U - wybierzesz  firmę Universal Studio");
-Console.WriteLine("naciśnij S - wybierzesz  firmę Sioux Film:");
-Console.WriteLine("naciśnij Q - wyjscie");
 
 for (; ; )
 {
+    Console.Clear();
+    Console.WriteLine("-----------------------STATYCZNA WYPOŻYCZALNIA SPRŻETU FILMOWEGO-----------------------");
+    Console.WriteLine("=======================================================================================");
+    Console.WriteLine("-------Masz wybór pomiędzy trzema firmami które mogą wypozyczyc sprzęt filmowy---------/n");
+    Console.WriteLine("naciśnij M - wybierzesz  firmę Mass Concept");
+    Console.WriteLine("naciśnij ST - wybierzesz  firmę Strip Studio");
+    Console.WriteLine("naciśnij S - wybierzesz  firmę Sioux Film:");
+    Console.WriteLine("naciśnij Q - wyjscie\n");
+
     Console.WriteLine("wybierz firmę ");
     var input = Console.ReadLine();
-    switch(input)
+    switch (input)
     {
         case "M":
         case "m":
             MassConcept();
             break;
-        case "U":
-        case "u":
+        case "ST":
+        case "st":
             StripStudio();
             break;
         case "s":
@@ -36,7 +38,16 @@ for (; ; )
             break;
         case "q":
         case "Q":
-             i = 1;
+            var stat1 = Business.ReadPriceList();
+            var stat2 = Business1.ReadPriceList();
+            var stat3 = Business2.ReadPriceList();
+           Console.WriteLine("sumaryczny zysk na wszystkich firmach to: "+(stat1.TotalProfits+stat2.TotalProfits+stat3.TotalProfits));
+            i = 1;
+            break;
+        case "T":
+        case "t":
+            Console.WriteLine("sumaryczny zysk na wszystkich firmach to: " + (global[0] + global[1] + global[2]));
+            i = 1;
             break;
         default:
             Console.WriteLine("dokonaj poprawnego wyboru");
@@ -50,53 +61,66 @@ for (; ; )
 
 void MassConcept()
 {
-    Console.WriteLine(User.Name);
+    Console.WriteLine(Business.Name);
     Console.WriteLine("Kamera  koszt: ");
     var input = Console.ReadLine();
     Console.WriteLine("ile kamer?: ");
     var input3 = Console.ReadLine();
     Console.WriteLine("ile dni: ");
     var input2 = Console.ReadLine();
-    User.AddPrice(input, input2, input3);
+    Business.AddPrice(input, input2, input3);
       
-    var stat = User.ReadPriceList();
-    Console.WriteLine("wartość transakcji wynosi   " + stat.Profit + " zł");
+    var stat = Business.ReadPriceList();
+    Console.WriteLine($"wartość transakcji wynosi     {stat.Profit}  zł");
 
-    Console.WriteLine("Sumaryczny zarobke na firmie   " + User.Name + " to " + stat.TotalProfits + " zł");
-    Console.WriteLine("Średnia dniówka na " + stat.DayValue + " dni wypozyczenia sprzętu wynosi :" + stat.AverageProfitsPerDay + " zł");
+    Console.WriteLine($"Sumaryczny zarobke na firmie    {Business.Name}  to  {stat.TotalProfits}  zł");
+    Console.WriteLine($"Średnia dniówka na   {stat.DayValue}  dni wypozyczenia sprzętu wynosi : {stat.AverageProfitsPerDay}  zł\n");
+    Console.WriteLine("naciśnij klawisz");
+    Console.ReadKey();
+    global[0] = stat.TotalProfits;
+    
 }
+
 void StripStudio()
 {
-    Console.WriteLine(User1.Name);
+    Console.WriteLine(Business1.Name);
     Console.WriteLine("Kamera  koszt: ");
     var input = Console.ReadLine();
     Console.WriteLine("ile kamer?: ");
     var input3 = Console.ReadLine();
     Console.WriteLine("ile dni: ");
     var input2 = Console.ReadLine();
-    User1.AddPrice(input, input2, input3);
+    Business1.AddPrice(input, input2, input3);
 
 
 
-    var stat = User1.ReadPriceList();
-    Console.WriteLine("wartość transakcji wynosi   " + stat.Profit + " zł");
-
-    Console.WriteLine("Sumaryczny zarobke na firmie  " + User1.Name + " to " + stat.TotalProfits + " zł");
-    Console.WriteLine("Średnia dniówka na " + stat.DayValue + " dni wypozyczenia sprzętu wynosi :" + stat.AverageProfitsPerDay + " zł");
+    var stat = Business1.ReadPriceList();
+  
+    Console.WriteLine($"wartość transakcji wynosi    {stat.Profit}  zł");
+    Console.WriteLine($"Sumaryczny zarobek na firmie    {Business1.Name}  to   {stat.TotalProfits}  zł");
+    Console.WriteLine($"Średnia dniówka na sumaryczne  {stat.DayValue}  dni wypozyczenia sprzętu wynosi:  {stat.AverageProfitsPerDay}  zł\n");
+    Console.WriteLine("naciśnij klawisz");
+    Console.ReadKey();
+    global[1] = stat.TotalProfits;
 }
 void SiouxFilm()
 {
-    Console.WriteLine(User2.Name);
+    Console.WriteLine(Business2.Name);
     Console.WriteLine("Kamera  koszt: ");
     var input = Console.ReadLine();
     Console.WriteLine("ile kamer?: ");
     var input3 = Console.ReadLine();
     Console.WriteLine("ile dni: ");
     var input2 = Console.ReadLine();
-    User2.AddPrice(input, input2, input3);
+    Business2.AddPrice(input, input2, input3);
+    
+    var stat = Business2.ReadPriceList();
 
-    var stat = User2.ReadPriceList();
+    Console.WriteLine($"wartość transakcji wynosi    {stat.Profit}  zł");
+    Console.WriteLine($"Sumaryczny zarobke na firmie   { Business2.Name }  to   { stat.TotalProfits}   zł");
+    Console.WriteLine($"Średnia dniówka na   {stat.DayValue}   dni wypozyczenia sprzętu wynosi : { stat.AverageProfitsPerDay}   zł\n");
+    Console.WriteLine("naciśnij klawisz");
+    Console.ReadKey();
+    global[2] = stat.TotalProfits;
 
-    Console.WriteLine("Sumaryczny zarobke na firmie  " + User2.Name + " to " + stat.TotalProfits + " zł");
-    Console.WriteLine("Średnia dniówka na " + stat.DayValue + " dni wypozyczenia sprzętu wynosi :" + stat.AverageProfitsPerDay + " zł");
 }
