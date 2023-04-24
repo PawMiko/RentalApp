@@ -9,17 +9,17 @@ namespace RentalApp
     public abstract  class FilmEquipmentBase : IFilmEquipments
     {
 
-        public filmequipmentbase()
+        public FilmEquipmentBase()
         {
         }
-        public filmequipmentbase(string name)
+        public FilmEquipmentBase(string name)
         {
-            name = name;
+            Name = name;
         }
-        public filmequipmentbase(string name, string namefile)
+        public FilmEquipmentBase(string name, string namefile)
         {
-            name = name;
-            namefile = namefile;
+            Name = name;
+            NameFile = namefile;
         }
         public string Name { get; private set; }
         public string NameFile { get;  set; }

@@ -6,7 +6,7 @@ namespace RentalApp
 {
     public class PriceOfFilmEquipmentToFile :FilmEquipmentBase
     {
-
+        private int tempProcent = 0;
         public PriceOfFilmEquipmentToFile() 
         {
         }
@@ -19,20 +19,25 @@ namespace RentalApp
         }
 
         
-        public override void AddPrice(float fPrice, int day, int numberOfCameras)
+        public override void AddPrice(float fPrice, int day, int numberOfCameras)//METODA DODAJĄCA DO PLIKU KWOTĘ JUŻ PO RABACIE
         {
-            fPrice = fPrice * day * numberOfCameras;
+            var stat = new Statistics();
+
+            var temp = stat.DiscountCalculation(fPrice, day, numberOfCameras); //ODWOŁANIE  DO STATYSTYK GDZIE JEST SĄ PEŁNE OBLICZENA 
+            tempProcent = stat.ProcentDiscount;
+                  
             using (var writer=File.AppendText(NameFile))
             {
-                writer.WriteLine(fPrice);
-                writer.WriteLine(day);
+                writer.WriteLine(temp); // DODAWANIE DO PLIKU SUMY Z JEDNEJ TRANSAKCJI   - LINIA NIEPAZYSTA
+                writer.WriteLine(day); //DODAWANIE DO TEGO SAMEGO PLIKU ILOŚC DNI KTÓRE NAWIĄZUJĄDO WYOŻYCZENIA  -LINIA PAZYSTA
+                 // PRZYDA SIE TO PÓŹNIEJ DO ODCZYTU I ZSUMOWANIA WSZYSTKICH DNI ABY WYCIĄGNĄĆ ŚREDNI ZAROBEK W PRZELICZENIA NA DZIEŃ.
             }
 
         }
 
-        public override void AddPrice(string sPrice, string day, string numberOfCameras)
+        public override void AddPrice(string sPrice, string day, string numberOfCameras)//METODA KONWERTUJĄCA DO ODPOWIEDNICH TYPÓW ZE STRINGA
         {
-            var replacement = sPrice.Replace(".", ",");
+            var replacement = sPrice.Replace(".", ","); //PONIEWAZ MI SIE TO ZDAŻA TO NIE MA ZNACZENIA CZY PRZECINEK CZY KROPKA.
 
             if (float.TryParse(replacement, out float floatConvert) && int.TryParse(day, out int day1) && int.TryParse(numberOfCameras, out int numberOfCameras1))
             {
@@ -47,23 +52,32 @@ namespace RentalApp
             AddPrice(price, day1, numberOfCameras1);
         }
 
-        public override Statistics ReadPriceList()
+        public override Statistics ReadPriceList()//METODA ODCZYTUJĄCA ODPOWIEDNIO  Z PLIKU
         {
             var stat = new Statistics();
+
+            float profit = 0;
+            float totalProfits = 0;
+            float tempDay = 0;
             using (var reader = File.OpenText(NameFile))
             {
                 var line = reader.ReadLine();
                 while (line != null)
                 {
-                    var money = float.Parse(line);
+                    profit = float.Parse(line);
+
+                    totalProfits += profit;  
                     line = reader.ReadLine();
-                    var day= int.Parse(line);
-                    
-                    stat.AddCash(money,day);
-                    
-                    line = reader.ReadLine();
+
+                    tempDay = int.Parse(line);
+                              
+                  
+                    stat.AddCashInMemoryOrFile(profit, (int)tempDay, totalProfits);
+
+                    line = reader.ReadLine(); 
                 }
             }
+            stat.ProcentDiscount = tempProcent;
             return stat;
         }
 

@@ -1,11 +1,10 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using RentalApp;
 int i=0;
-var Business  = new PriceOfFilmEquipmentToFile("MassConcept: ","massConcept.txt");
-var Business1 = new PriceOfFilmEquipmentToFile("Strip Studio: ","StripStudio.txt");
-var Business2 = new PriceOfFilmEquipmentToFile("Sioux Film: ","SiouxFilm.txt");
-var Global    = new PriceOfFilmEquipmentToFile();
-float[] global = new float[3];
+var Business  = new FilmEquipmentToMemory("MassConcept: ","massConcept.txt");
+var Business1 = new FilmEquipmentToMemory("Strip Studio: ","StripStudio.txt");
+var Business2 = new FilmEquipmentToMemory("Sioux Film: ","SiouxFilm.txt");
+
 
 
 
@@ -41,16 +40,12 @@ for (; ; )
             var stat1 = Business.ReadPriceList();
             var stat2 = Business1.ReadPriceList();
             var stat3 = Business2.ReadPriceList();
-           Console.WriteLine("sumaryczny zysk na wszystkich firmach to: "+(stat1.TotalProfits+stat2.TotalProfits+stat3.TotalProfits));
-            i = 1;
-            break;
-        case "T":
-        case "t":
-            Console.WriteLine("sumaryczny zysk na wszystkich firmach to: " + (global[0] + global[1] + global[2]));
+           Console.WriteLine("sumaryczny zysk na wszystkich firmach to: "+((float)Math.Round(stat1.TotalProfits + stat2.TotalProfits + stat3.TotalProfits, 2)));
             i = 1;
             break;
         default:
-            Console.WriteLine("dokonaj poprawnego wyboru");
+            Console.WriteLine(" zły wybór. Naciśnij dowolny klawisz i dokonaj poprawnego wyboru");
+            Console.ReadKey();
             break;
     }
     if (i == 1)
@@ -68,16 +63,18 @@ void MassConcept()
     var input3 = Console.ReadLine();
     Console.WriteLine("ile dni: ");
     var input2 = Console.ReadLine();
+   
     Business.AddPrice(input, input2, input3);
-      
     var stat = Business.ReadPriceList();
-    Console.WriteLine($"wartość transakcji wynosi     {stat.Profit}  zł");
 
-    Console.WriteLine($"Sumaryczny zarobke na firmie    {Business.Name}  to  {stat.TotalProfits}  zł");
-    Console.WriteLine($"Średnia dniówka na   {stat.DayValue}  dni wypozyczenia sprzętu wynosi : {stat.AverageProfitsPerDay}  zł\n");
+
+    Console.WriteLine($"wartość ostatniej transakcji wynosi     {stat.Profit}  zł z rabatem { stat.ProcentDiscount} %" );
+
+    Console.WriteLine($"Sumaryczny zarobek na firmie    {Business.Name}  to  {stat.TotalProfits}  zł");
+    Console.WriteLine($"Średnia dniówka na   {stat.DayValue}  dni wypożyczenia sprzętu wynosi : {stat.AverageProfitsPerDay}  zł\n");
     Console.WriteLine("naciśnij klawisz");
     Console.ReadKey();
-    global[0] = stat.TotalProfits;
+  
     
 }
 
@@ -95,13 +92,13 @@ void StripStudio()
 
 
     var stat = Business1.ReadPriceList();
-  
-    Console.WriteLine($"wartość transakcji wynosi    {stat.Profit}  zł");
+
+    Console.WriteLine($"wartość ostatniej transakcji wynosi     {stat.Profit}  zł z rabatem {stat.ProcentDiscount} %");
     Console.WriteLine($"Sumaryczny zarobek na firmie    {Business1.Name}  to   {stat.TotalProfits}  zł");
     Console.WriteLine($"Średnia dniówka na sumaryczne  {stat.DayValue}  dni wypozyczenia sprzętu wynosi:  {stat.AverageProfitsPerDay}  zł\n");
     Console.WriteLine("naciśnij klawisz");
     Console.ReadKey();
-    global[1] = stat.TotalProfits;
+   
 }
 void SiouxFilm()
 {
@@ -116,11 +113,11 @@ void SiouxFilm()
     
     var stat = Business2.ReadPriceList();
 
-    Console.WriteLine($"wartość transakcji wynosi    {stat.Profit}  zł");
+    Console.WriteLine($"wartość ostatniej  transakcji wynosi     {stat.Profit}  zł z rabatem {stat.ProcentDiscount} %");
     Console.WriteLine($"Sumaryczny zarobke na firmie   { Business2.Name }  to   { stat.TotalProfits}   zł");
     Console.WriteLine($"Średnia dniówka na   {stat.DayValue}   dni wypozyczenia sprzętu wynosi : { stat.AverageProfitsPerDay}   zł\n");
     Console.WriteLine("naciśnij klawisz");
     Console.ReadKey();
-    global[2] = stat.TotalProfits;
+   
 
 }
