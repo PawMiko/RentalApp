@@ -28,7 +28,7 @@ namespace RentalApp
             var temp = stat.DiscountCalculation(fPrice, day, numberOfCameras);
             this.AllPrices.Add(temp);// DODAWANIE DO LISTY SUMY Z JEDNEJ TRANSAKCJI   - LINIA NIEPAZYSTA
             tempProcent = stat.ProcentDiscount;
-            this.Day.Add(day);//DODAWANIE DO TEJ SAMEJ LISTY ILOŚC DNI KTÓRE NAWIĄZUJĄDO WYOŻYCZENIA  -LINIA PAZYSTA
+            this.Day.Add(day);//DODAWANIE DO TEJ SAMEJ LISTY ILOŚC DNI KTÓRE NAWIĄZUJĄDO WYOŻYCZENIA  -LINIA PAZYSTA 
 
         }
 

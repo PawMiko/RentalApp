@@ -1,9 +1,13 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using RentalApp;
 int i=0;
-var Business  = new FilmEquipmentToMemory("MassConcept: ","massConcept.txt");
-var Business1 = new FilmEquipmentToMemory("Strip Studio: ","StripStudio.txt");
-var Business2 = new FilmEquipmentToMemory("Sioux Film: ","SiouxFilm.txt");
+var Business  = new PriceOfFilmEquipmentToFile("MassConcept: ","massConcept.txt");
+var Business1 = new PriceOfFilmEquipmentToFile("Strip Studio: ","StripStudio.txt");
+var Business2 = new PriceOfFilmEquipmentToFile("Sioux Film: ","SiouxFilm.txt");
+
+Business.PriceAddedToFile += Information;
+Business1.PriceAddedToFile += Information;
+Business2.PriceAddedToFile += Information;
 
 
 
@@ -120,4 +124,8 @@ void SiouxFilm()
     Console.ReadKey();
    
 
+}
+void Information(object sender, EventArgs args)
+{
+    Console.WriteLine("Dane dodano do pliku ");
 }

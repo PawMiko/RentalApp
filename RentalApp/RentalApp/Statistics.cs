@@ -16,8 +16,7 @@ namespace RentalApp
         { get
             {
                
-                return (float)Math.Round(this.TotalProfits / this.DayValue, 2);          
-
+                return (float)Math.Round(this.TotalProfits / this.DayValue, 2);         
             } 
         }
         public float TotalProfits { get; private set; }
@@ -36,6 +35,9 @@ namespace RentalApp
        public float DiscountCalculation(float fPrice, int day, int numberOfCameras)//OBLICZANIE RABATU OD KONKRETNEJ KWOTY
         {
             this.Profit = fPrice * day * numberOfCameras;
+            if (this.Profit < 0)                 //sprawdzanie czy  profit jest ujemny jezeli jest to mnożymy go przez -1 ( bo cena musi być dodatnia)
+                this.Profit = this.Profit * (-1);
+
             if (this.Profit >= 2500 && this.Profit < 5000)
             {
                 this.ProcentDiscount = 5;
