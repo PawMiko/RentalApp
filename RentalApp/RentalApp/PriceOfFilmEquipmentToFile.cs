@@ -26,7 +26,7 @@ namespace RentalApp
             var stat = new Statistics();
 
             var temp = stat.DiscountCalculation(fPrice, day, numberOfCameras); //ODWOŁANIE  DO STATYSTYK GDZIE JEST SĄ PEŁNE OBLICZENA 
-            tempProcent = stat.ProcentDiscount;
+            tempProcent = stat.ProcentDiscount; //zachowanie w pamięci  wartości procentowej (5,10 lub 15%) gdzie będzie później wykorzystana do wyświetlania w konsoli  
                   
             using (var writer=File.AppendText(NameFile))
             {
@@ -35,7 +35,7 @@ namespace RentalApp
                                     // PRZYDA SIE TO PÓŹNIEJ DO ODCZYTU I ZSUMOWANIA WSZYSTKICH DNI ABY WYCIĄGNĄĆ ŚREDNI ZAROBEK W PRZELICZENIA NA DZIEŃ.
                 if (PriceAddedToFile!=null) 
                 {
-                    PriceAddedToFile(this,new EventArgs());//EVENT
+                    PriceAddedToFile(this,new EventArgs());//EVENT  
                 }
             }
 
@@ -70,19 +70,17 @@ namespace RentalApp
                 var line = reader.ReadLine();
                 while (line != null)
                 {
-                    profit = float.Parse(line);
+                    profit = float.Parse(line); //sczytywanie pierwszej linii
 
                     totalProfits += profit;  
                     line = reader.ReadLine();
 
-                    tempDay = int.Parse(line);
-                              
-                  
-                    stat.AddCashInMemoryOrFile(profit, (int)tempDay, totalProfits);
+                    tempDay += int.Parse(line); //sczytywanie drugiej linii                
 
                     line = reader.ReadLine(); 
                 }
             }
+            stat.AddCashInMemoryOrFile(profit, (int)tempDay, totalProfits);
             stat.ProcentDiscount = tempProcent;
             return stat;
         }

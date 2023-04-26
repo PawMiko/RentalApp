@@ -69,7 +69,7 @@ namespace RentalApp
         {
             this.Profit = money;
             this.TotalProfits = (float)Math.Round(totalProfit,2);
-            this.DayValue += day;
+            this.DayValue = day;
         }
     }
 }
