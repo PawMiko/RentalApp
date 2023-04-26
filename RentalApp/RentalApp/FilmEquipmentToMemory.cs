@@ -3,8 +3,9 @@ namespace RentalApp
 {
     public class FilmEquipmentToMemory : FilmEquipmentBase
     {
-        private List<float> AllPrices = new List<float>();
-        private List<int> Day = new List<int>();
+        private List<float> AllPrices = new List<float>(); //lista przechowuje ceny z poszczególnych transakcji
+        private List<int> Day = new List<int>();//lista przechowuje  ilość dni które później są wykorzystywane do wyciagnięcia
+                                                //średniego zysku licząc na dzień
 
         private int tempProcent = 0;
 
@@ -26,15 +27,15 @@ namespace RentalApp
             var stat = new Statistics();
 
             var temp = stat.DiscountCalculation(fPrice, day, numberOfCameras);
-            this.AllPrices.Add(temp);// DODAWANIE DO LISTY SUMY Z JEDNEJ TRANSAKCJI   - LINIA NIEPAZYSTA
+            this.AllPrices.Add(temp);// DODAWANIE DO LISTY SUMY Z JEDNEJ TRANSAKCJI  
             tempProcent = stat.ProcentDiscount;
-            this.Day.Add(day);//DODAWANIE DO TEJ SAMEJ LISTY ILOŚC DNI KTÓRE NAWIĄZUJĄDO WYOŻYCZENIA  -LINIA PAZYSTA 
+            this.Day.Add(day);//DODAWANIE DO LISTY ILOŚĆ DNI KTÓRE NAWIĄZUJĄDO WYOŻYCZENIA 
 
         }
 
-        public override void AddPrice(string sPrice, string day, string numberOfCameras) 
+        public override void AddPrice(string sPrice, string day, string numberOfCameras) //METODA KONWERTUJĄCA DO ODPOWIEDNIEGO TYPU ZE STRINGA
         {
-            var replacement = sPrice.Replace(".", ",");
+            var replacement = sPrice.Replace(".", ",");//PONIEWAŻ MI SIE TO ZDAŻA TO NIE MA ZNACZENIA CZY PRZECINEK CZY KROPKA.
 
             if (float.TryParse(replacement, out float floatConvert) && int.TryParse(day, out int day1) && int.TryParse(numberOfCameras, out int numberOfCameras1))
             {
@@ -49,7 +50,7 @@ namespace RentalApp
             AddPrice(price, day1, numberOfCameras1);
         }
 
-        public override Statistics ReadPriceList()
+        public override Statistics ReadPriceListOrFile()//metoda odczytująca odpowiednio z list
         {
             var stat = new Statistics();
             float totalProfits = 0;
@@ -61,10 +62,12 @@ namespace RentalApp
                 totalProfits += AllPrices[i];
                 profit = AllPrices[i];
             }
+
             foreach (var day in Day)
             {
                 tempDay += day;
             }
+
             stat.ProcentDiscount = this.tempProcent;
             stat.AddCashInMemoryOrFile(profit, tempDay, totalProfits);
 

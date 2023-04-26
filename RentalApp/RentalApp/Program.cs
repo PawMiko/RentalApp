@@ -17,11 +17,11 @@ for (; ; )
     Console.Clear();
     Console.WriteLine("-----------------------STATYCZNA WYPOŻYCZALNIA SPRŻETU FILMOWEGO-----------------------");
     Console.WriteLine("=======================================================================================");
-    Console.WriteLine("-------Masz wybór pomiędzy trzema firmami które mogą wypozyczyc sprzęt filmowy---------/n");
+    Console.WriteLine("-------Masz wybór pomiędzy trzema firmami które mogą wypożyczyć sprzęt filmowy---------/n");
     Console.WriteLine("naciśnij M - wybierzesz  firmę Mass Concept");
     Console.WriteLine("naciśnij ST - wybierzesz  firmę Strip Studio");
     Console.WriteLine("naciśnij S - wybierzesz  firmę Sioux Film:");
-    Console.WriteLine("naciśnij Q - wyjscie\n");
+    Console.WriteLine("naciśnij Q - wyjście\n");
 
     Console.WriteLine("wybierz firmę ");
     var input = Console.ReadLine();
@@ -41,10 +41,10 @@ for (; ; )
             break;
         case "q":
         case "Q":
-            var stat1 = Business.ReadPriceList();
-            var stat2 = Business1.ReadPriceList();
-            var stat3 = Business2.ReadPriceList();
-           Console.WriteLine("sumaryczny zysk na wszystkich firmach to: "+((float)Math.Round(stat1.TotalProfits + stat2.TotalProfits + stat3.TotalProfits, 2)));
+            var stat1 = Business.ReadPriceListOrFile();
+            var stat2 = Business1.ReadPriceListOrFile();
+            var stat3 = Business2.ReadPriceListOrFile();
+           Console.WriteLine($"sumaryczny zysk na wszystkich firmach to: {(float)Math.Round(stat1.TotalProfits + stat2.TotalProfits + stat3.TotalProfits, 2)}");
             i = 1;
             break;
         default:
@@ -69,7 +69,7 @@ void MassConcept()
     var input2 = Console.ReadLine();
    
     Business.AddPrice(input, input2, input3);
-    var stat = Business.ReadPriceList();
+    var stat = Business.ReadPriceListOrFile();
 
 
     Console.WriteLine($"wartość ostatniej transakcji wynosi     {stat.Profit}  zł z rabatem { stat.ProcentDiscount} %" );
@@ -95,11 +95,11 @@ void StripStudio()
 
 
 
-    var stat = Business1.ReadPriceList();
+    var stat = Business1.ReadPriceListOrFile();
 
     Console.WriteLine($"wartość ostatniej transakcji wynosi     {stat.Profit}  zł z rabatem {stat.ProcentDiscount} %");
     Console.WriteLine($"Sumaryczny zarobek na firmie    {Business1.Name}  to   {stat.TotalProfits}  zł");
-    Console.WriteLine($"Średnia dniówka na sumaryczne  {stat.DayValue}  dni wypozyczenia sprzętu wynosi:  {stat.AverageProfitsPerDay}  zł\n");
+    Console.WriteLine($"Średnia dniówka na sumaryczne  {stat.DayValue}  dni wypożyczenia sprzętu wynosi:  {stat.AverageProfitsPerDay}  zł\n");
     Console.WriteLine("naciśnij klawisz");
     Console.ReadKey();
    
@@ -115,11 +115,11 @@ void SiouxFilm()
     var input2 = Console.ReadLine();
     Business2.AddPrice(input, input2, input3);
     
-    var stat = Business2.ReadPriceList();
+    var stat = Business2.ReadPriceListOrFile();
 
     Console.WriteLine($"wartość ostatniej  transakcji wynosi     {stat.Profit}  zł z rabatem {stat.ProcentDiscount} %");
     Console.WriteLine($"Sumaryczny zarobke na firmie   { Business2.Name }  to   { stat.TotalProfits}   zł");
-    Console.WriteLine($"Średnia dniówka na   {stat.DayValue}   dni wypozyczenia sprzętu wynosi : { stat.AverageProfitsPerDay}   zł\n");
+    Console.WriteLine($"Średnia dniówka na   {stat.DayValue}   dni wypożyczenia sprzętu wynosi : { stat.AverageProfitsPerDay}   zł\n");
     Console.WriteLine("naciśnij klawisz");
     Console.ReadKey();
    

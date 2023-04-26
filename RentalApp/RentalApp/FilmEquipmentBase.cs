@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace RentalApp
 {
@@ -29,7 +25,7 @@ namespace RentalApp
         public abstract void AddPrice(float fPrice, int day, int numberOfCameras);
         public abstract void AddPrice(string sPrice, string day, string numberOfCameras);
         public abstract void AddPrice(ulong uPrice, int day1, int numberOfCameras1);
-        public abstract Statistics ReadPriceList();
+        public abstract Statistics ReadPriceListOrFile();
 
     }
 }

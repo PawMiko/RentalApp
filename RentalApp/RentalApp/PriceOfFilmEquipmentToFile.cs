@@ -7,13 +7,12 @@ namespace RentalApp
     public class PriceOfFilmEquipmentToFile :FilmEquipmentBase
     {
         private int tempProcent = 0;
-        public delegate void PriceAddedDelegate (object sender, EventArgs arg);
+        public delegate void PriceAddedDelegate (object sender, EventArgs arg); 
         public event PriceAddedDelegate PriceAddedToFile;
 
-        public PriceOfFilmEquipmentToFile() 
+        public PriceOfFilmEquipmentToFile()
         {
         }
-
         public PriceOfFilmEquipmentToFile(string name) :base(name) 
         {          
         }
@@ -31,18 +30,18 @@ namespace RentalApp
                   
             using (var writer=File.AppendText(NameFile))
             {
-                writer.WriteLine(temp); // DODAWANIE DO PLIKU SUMY Z JEDNEJ TRANSAKCJI   - LINIA NIEPAZYSTA
+                writer.WriteLine(Math.Round(temp,2)); // DODAWANIE DO PLIKU SUMY Z JEDNEJ TRANSAKCJI   - LINIA NIEPAZYSTA
                 writer.WriteLine(day); //DODAWANIE DO TEGO SAMEGO PLIKU ILOŚC DNI KTÓRE NAWIĄZUJĄDO WYOŻYCZENIA  -LINIA PAZYSTA
                                     // PRZYDA SIE TO PÓŹNIEJ DO ODCZYTU I ZSUMOWANIA WSZYSTKICH DNI ABY WYCIĄGNĄĆ ŚREDNI ZAROBEK W PRZELICZENIA NA DZIEŃ.
-                if (PriceAddedToFile!=null)
+                if (PriceAddedToFile!=null) 
                 {
-                    PriceAddedToFile(this,new EventArgs());
+                    PriceAddedToFile(this,new EventArgs());//EVENT
                 }
             }
 
         }
 
-        public override void AddPrice(string sPrice, string day, string numberOfCameras)//METODA KONWERTUJĄCA DO ODPOWIEDNICH TYPÓW ZE STRINGA
+        public override void AddPrice(string sPrice, string day, string numberOfCameras)//METODA KONWERTUJĄCA DO ODPOWIEDNIEGO TYPU ZE STRINGA
         {
             var replacement = sPrice.Replace(".", ","); //PONIEWAZ MI SIE TO ZDAŻA TO NIE MA ZNACZENIA CZY PRZECINEK CZY KROPKA.
 
@@ -59,7 +58,7 @@ namespace RentalApp
             AddPrice(price, day1, numberOfCameras1);
         }
 
-        public override Statistics ReadPriceList()//METODA ODCZYTUJĄCA ODPOWIEDNIO  Z PLIKU
+        public override Statistics ReadPriceListOrFile()//METODA ODCZYTUJĄCA ODPOWIEDNIO  Z PLIKU
         {
             var stat = new Statistics();
 
