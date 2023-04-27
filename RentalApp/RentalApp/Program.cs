@@ -1,4 +1,10 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿
+
+//Program który ma zaimplementowane statycznie 3 firmy które możemy  wybrać. Każda firma ma możliwość wypożyczenia ilość kamer  cenę za kamerę i ilość dni które są potrzebne
+//do wypożyczenia. Program oblicza rabat w przypadku odpowiedniej kwoty jednostkowej, a także   drukuje w konsoli sumę wszystkich transakcji firmy, a także
+//oblicza średni zysk w przeliczeniu na jeden dzień dla tej firmy. Przy wyjściu z programu sumuje i wyświetla zyski ze wszystkich firm. Wszystkie  kluczowe
+//wartości są zapisywne do plików.
+// See https://aka.ms/new-console-template for more information
 using RentalApp;
 int i=0;
 var Business  = new PriceOfFilmEquipmentToFile("MassConcept: ","massConcept.txt");
@@ -12,7 +18,7 @@ Business2.PriceAddedToFile += Information;
 
 
 
-for (; ; )
+for (;;)
 {
     Console.Clear();
     Console.WriteLine("-----------------------STATYCZNA WYPOŻYCZALNIA SPRŻETU FILMOWEGO-----------------------");
