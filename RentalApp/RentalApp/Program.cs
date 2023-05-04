@@ -1,24 +1,15 @@
-﻿
+﻿using RentalApp;
+int i = 0;
+var company = new PriceOfTheCameraToTheFile("MassConcept: ", "massConcept.txt");
+var company1 = new PriceOfTheCameraToTheFile("Strip Studio: ", "StripStudio.txt");
+var company2 = new PriceOfTheCameraToTheFile("Sioux Film: ", "SiouxFilm.txt");
+var currentCompany = new PriceOfTheCameraToTheFile();
 
-//Program który ma zaimplementowane statycznie 3 firmy które możemy  wybrać. Każda firma ma możliwość wypożyczenia ilość kamer  cenę za kamerę i ilość dni które są potrzebne
-//do wypożyczenia. Program oblicza rabat w przypadku odpowiedniej kwoty jednostkowej, a także   drukuje w konsoli sumę wszystkich transakcji firmy, a także
-//oblicza średni zysk w przeliczeniu na jeden dzień dla tej firmy. Przy wyjściu z programu sumuje i wyświetla zyski ze wszystkich firm. Wszystkie  kluczowe
-//wartości są zapisywne do plików.
-// See https://aka.ms/new-console-template for more information
-using RentalApp;
-int i=0;
-var Business  = new PriceOfFilmEquipmentToFile("MassConcept: ","massConcept.txt");
-var Business1 = new PriceOfFilmEquipmentToFile("Strip Studio: ","StripStudio.txt");
-var Business2 = new PriceOfFilmEquipmentToFile("Sioux Film: ","SiouxFilm.txt");
+company.PriceAddedToFile += Information;
+company1.PriceAddedToFile += Information;
+company2.PriceAddedToFile += Information;
 
-Business.PriceAddedToFile += Information;
-Business1.PriceAddedToFile += Information;
-Business2.PriceAddedToFile += Information;
-
-
-
-
-for (;;)
+for (; ; )
 {
     Console.Clear();
     Console.WriteLine("-----------------------STATYCZNA WYPOŻYCZALNIA SPRŻETU FILMOWEGO-----------------------");
@@ -35,22 +26,22 @@ for (;;)
     {
         case "M":
         case "m":
-            MassConcept();
+            ChooseACompany("M");
             break;
         case "ST":
         case "st":
-            StripStudio();
+            ChooseACompany("ST");
             break;
         case "s":
         case "S":
-            SiouxFilm();
+            ChooseACompany("S");
             break;
         case "q":
         case "Q":
-            var stat1 = Business.ReadPriceListOrFile();
-            var stat2 = Business1.ReadPriceListOrFile();
-            var stat3 = Business2.ReadPriceListOrFile();
-           Console.WriteLine($"sumaryczny zysk na wszystkich firmach to: {(float)Math.Round(stat1.TotalProfits + stat2.TotalProfits + stat3.TotalProfits, 2)}");
+            var stat1 = company.LoadedPrices();
+            var stat2 = company1.LoadedPrices();
+            var stat3 = company2.LoadedPrices();
+            Console.WriteLine($"sumaryczny zysk na wszystkich firmach to: {(float)Math.Round(stat1.TotalProfits + stat2.TotalProfits + stat3.TotalProfits, 2)}");
             i = 1;
             break;
         default:
@@ -62,75 +53,43 @@ for (;;)
         break;
 }
 
-
-
-void MassConcept()
+void ChooseACompany(string letter)
 {
-    Console.WriteLine(Business.Name);
+
+    if (letter == "M")
+    {
+        currentCompany = company;
+    }
+    else
+        if (letter == "ST")
+    {
+        currentCompany = company1;
+    }
+    else
+        if (letter == "S")
+    {
+        currentCompany = company2;
+    }
+
+    Console.WriteLine(currentCompany.Name);
     Console.WriteLine("Kamera  koszt: ");
     var input = Console.ReadLine();
     Console.WriteLine("ile kamer?: ");
     var input3 = Console.ReadLine();
     Console.WriteLine("ile dni: ");
     var input2 = Console.ReadLine();
-   
-    Business.AddPrice(input, input2, input3);
-    var stat = Business.ReadPriceListOrFile();
 
+    currentCompany.AddPrice(input, input2, input3);
+    var stat = currentCompany.LoadedPrices();
 
-    Console.WriteLine($"wartość ostatniej transakcji wynosi     {stat.Profit}  zł z rabatem { stat.ProcentDiscount} %" );
-
-    Console.WriteLine($"Sumaryczny zarobek na firmie    {Business.Name}  to  {stat.TotalProfits}  zł");
+    Console.WriteLine($"wartość ostatniej transakcji wynosi     {stat.Profit}  zł z rabatem {stat.ProcentDiscount} %");
+    Console.WriteLine($"Sumaryczny zarobek na firmie    {currentCompany.Name}  to  {stat.TotalProfits}  zł");
     Console.WriteLine($"Średnia dniówka na   {stat.DayValue}  dni wypożyczenia sprzętu wynosi : {stat.AverageProfitsPerDay}  zł\n");
     Console.WriteLine("naciśnij klawisz");
     Console.ReadKey();
-  
-    
-}
-
-void StripStudio()
-{
-    Console.WriteLine(Business1.Name);
-    Console.WriteLine("Kamera  koszt: ");
-    var input = Console.ReadLine();
-    Console.WriteLine("ile kamer?: ");
-    var input3 = Console.ReadLine();
-    Console.WriteLine("ile dni: ");
-    var input2 = Console.ReadLine();
-    Business1.AddPrice(input, input2, input3);
-
-
-
-    var stat = Business1.ReadPriceListOrFile();
-
-    Console.WriteLine($"wartość ostatniej transakcji wynosi     {stat.Profit}  zł z rabatem {stat.ProcentDiscount} %");
-    Console.WriteLine($"Sumaryczny zarobek na firmie    {Business1.Name}  to   {stat.TotalProfits}  zł");
-    Console.WriteLine($"Średnia dniówka na sumaryczne  {stat.DayValue}  dni wypożyczenia sprzętu wynosi:  {stat.AverageProfitsPerDay}  zł\n");
-    Console.WriteLine("naciśnij klawisz");
-    Console.ReadKey();
-   
-}
-void SiouxFilm()
-{
-    Console.WriteLine(Business2.Name);
-    Console.WriteLine("Kamera  koszt: ");
-    var input = Console.ReadLine();
-    Console.WriteLine("ile kamer?: ");
-    var input3 = Console.ReadLine();
-    Console.WriteLine("ile dni: ");
-    var input2 = Console.ReadLine();
-    Business2.AddPrice(input, input2, input3);
-    
-    var stat = Business2.ReadPriceListOrFile();
-
-    Console.WriteLine($"wartość ostatniej  transakcji wynosi     {stat.Profit}  zł z rabatem {stat.ProcentDiscount} %");
-    Console.WriteLine($"Sumaryczny zarobke na firmie   { Business2.Name }  to   { stat.TotalProfits}   zł");
-    Console.WriteLine($"Średnia dniówka na   {stat.DayValue}   dni wypożyczenia sprzętu wynosi : { stat.AverageProfitsPerDay}   zł\n");
-    Console.WriteLine("naciśnij klawisz");
-    Console.ReadKey();
-   
 
 }
+
 void Information(object sender, EventArgs args)
 {
     Console.WriteLine("Dane dodano do pliku ");
