@@ -1,56 +1,44 @@
-namespace RentalApp.Test
+namespace RentalApp.Test;
+
+public class Tests
 {
-    public class Tests
+
+    [Test]
+    public void CheckResultAfterDiscount()
     {
-       
-        [Test]
-        public void CheckResultAfterDiscount()
-        {
 
-            //arrange
-           var res= new Statistics();
-            
-            res.DiscountCalculation(999.998f, 2, 2);
-            //act
-          // 
-            var result = res.Profit;
-            //assets
+        var res = new Discount();
 
-           
-            Assert.AreEqual(3799.99, Math.Round(result,2));
-        }
-        [Test]
-        public void CheckAverageProfitsPerDay()
-        {
+        res.DiscountCalculation(999.998f, 2, 2);
 
-            //arrange
-            var res = new Statistics();
+        var result = res.Profit;
 
-            res.AddCashInMemoryOrFile(1000, 2, 3800);
-         
-            //act
-            // 
-            float result = res.AverageProfitsPerDay;
-            //assets
+        Assert.AreEqual(3799.99, Math.Round(result, 2));
+    }
 
-            
-            Assert.AreEqual(1900, result);
-        }
-        [Test]
-        public void CheckTheDiscountAmount()
-        {
+    [Test]
+    public void CheckAverageProfitsPerDay()
+    {
 
-            //arrange
-            var res = new Statistics();
+        var res = new Statistics();
 
-            res.DiscountCalculation(1000, 2, 2);
-            //act
-            // 
-            float result = res.ProcentDiscount;
-            //assets
+        res.AddCashToStat(1000, 2, 3800);
+        res.AddCashToStat(1000, 2, 3800);
 
+        float result = res.AverageProfitsPerDay;
 
-            Assert.AreEqual(5, result);
-        }
+        Assert.AreEqual(1900, result);
+    }
+
+    [Test]
+    public void CheckTheDiscountAmount()
+    {
+        var res = new Discount();
+
+        res.DiscountCalculation(1000, 2, 2);
+
+        float result = res.ProcentDiscount;
+
+        Assert.AreEqual(5, result);
     }
 }
