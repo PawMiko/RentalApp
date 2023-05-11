@@ -19,7 +19,7 @@ public abstract class FilmEquipmentBase : IFilmEquipments
     public string NameFile { get; set; }
 
     public abstract void AddPrice(float fPrice, int day, int numberOfCameras);
-    public abstract void AddPrice(string sPrice, string day, string numberOfCameras);
+    public abstract void AddPrice(string sPrice, string day, string numberOfCameras);                                 //.
     public abstract void AddPrice(ulong uPrice, int day1, int numberOfCameras1);
     public abstract Statistics LoadedPrices();
       

@@ -12,7 +12,7 @@ company2.PriceAddedToFile += Information;
 for (; ; )
 {
     Console.Clear();
-    Console.WriteLine("-----------------------STATYCZNA WYPOŻYCZALNIA SPRŻETU FILMOWEGO-----------------------");
+    Console.WriteLine("-----------------------STATYCZNA WYPOŻYCZALNIA SPRZĘTU FILMOWEGO-----------------------");
     Console.WriteLine("=======================================================================================");
     Console.WriteLine("-------Masz wybór pomiędzy trzema firmami które mogą wypożyczyć sprzęt filmowy---------/n");
     Console.WriteLine("naciśnij M - wybierzesz  firmę Mass Concept");

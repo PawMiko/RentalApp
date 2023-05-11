@@ -20,12 +20,12 @@ public class Tests
     public void CheckAverageProfitsPerDay()
     {
 
-        var res = new Statistics();
+        var restat = new Statistics();
 
-        res.AddCashToStat(1000, 2, 3800);
-        res.AddCashToStat(1000, 2, 3800);
+        restat.AddCashToStat(1000, 2, 3800);
+        restat.AddCashToStat(1000, 2, 3800);
 
-        float result = res.AverageProfitsPerDay;
+        float result = restat.AverageProfitsPerDay;
 
         Assert.AreEqual(1900, result);
     }

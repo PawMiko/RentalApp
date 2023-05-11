@@ -48,7 +48,7 @@ public class ThePriceOfTheCameraInMemory : FilmEquipmentBase
 
     public override Statistics LoadedPrices()
     {
-        var stat = new Statistics();
+        var stat1 = new Statistics();
         float totalProfits = 0;
         float profit = 0;
         int tempDay = 0;
@@ -64,10 +64,10 @@ public class ThePriceOfTheCameraInMemory : FilmEquipmentBase
             tempDay += day;
         }
 
-        stat.ProcentDiscount = this.tempProcent;
-        stat.AddCashToStat(profit, tempDay, totalProfits);
+        stat1.ProcentDiscount = this.tempProcent;
+        stat1.AddCashToStat(profit, tempDay, totalProfits);
 
-        return stat;
+        return stat1;
     }
 
 }
