@@ -12,7 +12,7 @@ public class Discount
         Profit = 0;
         ProcentDiscount = 0;
     }
-
+    
     public float Profit { get; set; }
     public int ProcentDiscount { get; set; }
 
