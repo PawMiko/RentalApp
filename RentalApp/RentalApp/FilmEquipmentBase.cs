@@ -1,4 +1,4 @@
-﻿namespace RentalApp;
+﻿namespace RentalApp;                                                    //*
 
 public abstract class FilmEquipmentBase : IFilmEquipments
 {

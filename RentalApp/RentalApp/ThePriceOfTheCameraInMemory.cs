@@ -1,5 +1,5 @@
 ﻿
-namespace RentalApp;
+namespace RentalApp;                                                            //*
 
 public class ThePriceOfTheCameraInMemory : FilmEquipmentBase
 {

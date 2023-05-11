@@ -1,4 +1,4 @@
-﻿namespace RentalApp;                                                            //.
+﻿namespace RentalApp;                                                            
 
 public class PriceOfTheCameraToTheFile : FilmEquipmentBase
 {

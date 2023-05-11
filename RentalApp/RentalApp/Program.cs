@@ -41,7 +41,7 @@ for (; ; )
             var stat1 = company.LoadedPrices();
             var stat2 = company1.LoadedPrices();
             var stat3 = company2.LoadedPrices();
-            Console.WriteLine($"sumaryczny zysk na wszystkich firmach to: {(float)Math.Round(stat1.TotalProfits + stat2.TotalProfits + stat3.TotalProfits, 2)}");
+            Console.WriteLine($"Sumaryczny zysk na wszystkich firmach to: {(float)Math.Round(stat1.TotalProfits + stat2.TotalProfits + stat3.TotalProfits, 2)}");
             i = 1;
             break;
         default:

@@ -1,4 +1,4 @@
-namespace RentalApp.Test;
+namespace RentalApp.Test;                                                                                   //*
 
 public class Tests
 {
