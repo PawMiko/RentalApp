@@ -1,9 +1,9 @@
 ﻿using RentalApp;
 int i = 0;
-var company = new PriceOfTheCameraToTheFile("MassConcept: ", "massConcept.txt");
-var company1 = new PriceOfTheCameraToTheFile("Strip Studio: ", "StripStudio.txt");
-var company2 = new PriceOfTheCameraToTheFile("Sioux Film: ", "SiouxFilm.txt");
-var currentCompany = new PriceOfTheCameraToTheFile();
+var company = new CameraInFile("MassConcept: ", "massConcept.txt");
+var company1 = new CameraInFile("Strip Studio: ", "StripStudio.txt");
+var company2 = new CameraInFile("Sioux Film: ", "SiouxFilm.txt");
+var currentCompany = new CameraInFile();
 
 company.PriceAddedToFile += Information;
 company1.PriceAddedToFile += Information;
@@ -38,9 +38,9 @@ for (; ; )
             break;
         case "q":
         case "Q":
-            var stat1 = company.LoadedPrices();
-            var stat2 = company1.LoadedPrices();
-            var stat3 = company2.LoadedPrices();
+            var stat1 = company.GetStat();
+            var stat2 = company1.GetStat();
+            var stat3 = company2.GetStat();
             Console.WriteLine($"Sumaryczny zysk na wszystkich firmach to: {(float)Math.Round(stat1.TotalProfits + stat2.TotalProfits + stat3.TotalProfits, 2)}");
             i = 1;
             break;
@@ -80,7 +80,7 @@ void ChooseACompany(string letter)
     var input2 = Console.ReadLine();
 
     currentCompany.AddPrice(input, input2, input3);
-    var stat = currentCompany.LoadedPrices();
+    var stat = currentCompany.GetStat();
 
     Console.WriteLine($"wartość ostatniej transakcji wynosi     {stat.Profit}  zł z rabatem {stat.ProcentDiscount} %");
     Console.WriteLine($"Sumaryczny zarobek na firmie    {currentCompany.Name}  to  {stat.TotalProfits}  zł");

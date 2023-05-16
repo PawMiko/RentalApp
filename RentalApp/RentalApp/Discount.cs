@@ -16,9 +16,9 @@ public class Discount
     public float Profit { get; set; }
     public int ProcentDiscount { get; set; }
 
-    public float DiscountCalculation(float fPrice, int day, int numberOfCameras)
+    public float DiscountCalculation(float price, int day, int numberOfCameras)
     {
-        this.Profit = fPrice * day * numberOfCameras;
+        this.Profit = price * day * numberOfCameras;
         if (this.Profit < 0)                 
             this.Profit = this.Profit * (-1);
 
